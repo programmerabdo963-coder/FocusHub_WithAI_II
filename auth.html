@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FocusHub Pro | تسجيل الدخول</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --indigo:#4f46e5;--violet:#7c3aed;--emerald:#10b981;
+    --bg:#0f172a;--card:#1e293b;--border:#334155;--text:#f1f5f9;--muted:#94a3b8;
+  }
+  body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+
+  /* animated background */
+  .bg-orbs{position:fixed;inset:0;pointer-events:none;z-index:0;}
+  .orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:0.15;animation:orbFloat 8s ease-in-out infinite;}
+  .orb1{width:500px;height:500px;background:var(--indigo);top:-100px;right:-100px;animation-delay:0s;}
+  .orb2{width:400px;height:400px;background:var(--violet);bottom:-100px;left:-100px;animation-delay:3s;}
+  .orb3{width:300px;height:300px;background:var(--emerald);top:50%;left:50%;animation-delay:6s;}
+  @keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(30px,-30px) scale(1.05);}}
+
+  /* grid pattern */
+  body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(79,70,229,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(79,70,229,0.05) 1px,transparent 1px);background-size:40px 40px;z-index:0;}
+
+  .auth-container{position:relative;z-index:1;width:100%;max-width:440px;padding:20px;}
+
+  /* logo */
+  .auth-logo{text-align:center;margin-bottom:32px;}
+  .logo-icon{width:70px;height:70px;background:linear-gradient(135deg,var(--indigo),var(--violet));border-radius:22px;display:inline-flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:12px;box-shadow:0 20px 40px rgba(79,70,229,0.4);animation:logoFloat 3s ease-in-out infinite;}
+  @keyframes logoFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+  .logo-title{font-size:2rem;font-weight:900;letter-spacing:-0.5px;}
+  .logo-title span{background:linear-gradient(135deg,var(--indigo),var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .logo-sub{color:var(--muted);font-size:0.85rem;margin-top:4px;}
+
+  /* card */
+  .auth-card{background:var(--card);border:1px solid var(--border);border-radius:28px;padding:36px;box-shadow:0 30px 60px rgba(0,0,0,0.4);}
+
+  /* tabs */
+  .auth-tabs{display:flex;background:rgba(255,255,255,0.05);border-radius:14px;padding:4px;margin-bottom:28px;gap:4px;}
+  .tab-btn{flex:1;padding:10px;border:none;border-radius:10px;background:transparent;color:var(--muted);font-family:'Tajawal',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;transition:all 0.3s;}
+  .tab-btn.active{background:linear-gradient(135deg,var(--indigo),var(--violet));color:white;box-shadow:0 4px 15px rgba(79,70,229,0.4);}
+
+  /* form */
+  .form-panel{display:none;animation:fadeIn 0.3s ease;}
+  .form-panel.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+  .form-title{font-size:1.3rem;font-weight:900;margin-bottom:6px;}
+  .form-sub{color:var(--muted);font-size:0.82rem;margin-bottom:24px;}
+
+  .input-group{margin-bottom:16px;position:relative;}
+  .input-group label{display:block;font-size:0.8rem;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;}
+  .input-wrap{position:relative;}
+  .input-wrap i{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:0.9rem;pointer-events:none;}
+  .input-wrap input{width:100%;padding:12px 40px 12px 14px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:12px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:0.95rem;outline:none;transition:all 0.2s;}
+  .input-wrap input:focus{border-color:var(--indigo);background:rgba(79,70,229,0.08);box-shadow:0 0 0 3px rgba(79,70,229,0.15);}
+  .input-wrap .eye-btn{position:absolute;left:12px;right:auto;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;padding:4px;}
+
+  .avatar-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
+  .avatar-opt{width:44px;height:44px;border-radius:50%;border:2px solid var(--border);cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s;background:rgba(255,255,255,0.05);}
+  .avatar-opt.selected{border-color:var(--indigo);background:rgba(79,70,229,0.15);transform:scale(1.1);}
+
+  .submit-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--indigo),var(--violet));border:none;border-radius:14px;color:white;font-family:'Tajawal',sans-serif;font-size:1rem;font-weight:900;cursor:pointer;transition:all 0.3s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 25px rgba(79,70,229,0.4);}
+  .submit-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(79,70,229,0.5);}
+  .submit-btn:active{transform:scale(0.98);}
+  .submit-btn.loading{opacity:0.7;pointer-events:none;}
+
+  .error-msg{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#f87171;padding:10px 14px;border-radius:10px;font-size:0.85rem;margin-bottom:16px;display:none;}
+  .error-msg.show{display:flex;align-items:center;gap:8px;}
+
+  .divider{text-align:center;margin:20px 0;color:var(--muted);font-size:0.8rem;position:relative;}
+  .divider::before,.divider::after{content:'';position:absolute;top:50%;width:38%;height:1px;background:var(--border);}
+  .divider::before{right:0;} .divider::after{left:0;}
+
+  /* strength bar */
+  .strength-bar{height:4px;border-radius:4px;background:var(--border);margin-top:6px;overflow:hidden;}
+  .strength-fill{height:100%;border-radius:4px;transition:all 0.3s;width:0;}
+  .strength-label{font-size:0.75rem;margin-top:4px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<div class="auth-container">
+  <div class="auth-logo">
+    <div class="logo-icon">🎓</div>
+    <div class="logo-title">Focus<span>Hub</span> PRO</div>
+    <div class="logo-sub">منصتك الذكية للمذاكرة والتركيز</div>
+  </div>
+
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <button class="tab-btn active" onclick="switchTab('login')"><i class="fas fa-sign-in-alt" style="margin-left:6px"></i>تسجيل الدخول</button>
+      <button class="tab-btn" onclick="switchTab('register')"><i class="fas fa-user-plus" style="margin-left:6px"></i>حساب جديد</button>
+    </div>
+
+    <!-- Login -->
+    <div class="form-panel active" id="panel-login">
+      <div class="form-title">مرحباً بعودتك! 👋</div>
+      <div class="form-sub">سجّل دخولك للمتابعة من حيث توقفت</div>
+      <div class="error-msg" id="login-error"><i class="fas fa-exclamation-circle"></i><span></span></div>
+      <div class="input-group">
+        <label>البريد الإلكتروني</label>
+        <div class="input-wrap">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email">
+        </div>
+      </div>
+      <div class="input-group">
+        <label>كلمة المرور</label>
+        <div class="input-wrap">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
+          <button class="eye-btn" onclick="togglePass('login-pass',this)" type="button"><i class="fas fa-eye"></i></button>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="doLogin()" id="login-btn">
+        <i class="fas fa-arrow-left"></i> دخول إلى FocusHub
+      </button>
+    </div>
+
+    <!-- Register -->
+    <div class="form-panel" id="panel-register">
+      <div class="form-title">انضم إلينا اليوم 🚀</div>
+      <div class="form-sub">أنشئ حسابك وابدأ رحلة المذاكرة الذكية</div>
+      <div class="error-msg" id="register-error"><i class="fas fa-exclamation-circle"></i><span></span></div>
+      <div class="input-group">
+        <label>الاسم الكامل</label>
+        <div class="input-wrap">
+          <i class="fas fa-user"></i>
+          <input type="text" id="reg-name" placeholder="اسمك هنا">
+        </div>
+      </div>
+      <div class="input-group">
+        <label>البريد الإلكتروني</label>
+        <div class="input-wrap">
+          <i class="fas fa-envelope"></i>
+          <input type="email" id="reg-email" placeholder="your@email.com">
+        </div>
+      </div>
+      <div class="input-group">
+        <label>كلمة المرور</label>
+        <div class="input-wrap">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="reg-pass" placeholder="8 أحرف على الأقل" oninput="checkStrength(this.value)">
+          <button class="eye-btn" onclick="togglePass('reg-pass',this)" type="button"><i class="fas fa-eye"></i></button>
+        </div>
+        <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
+        <div class="strength-label" id="strength-label"></div>
+      </div>
+      <div class="input-group">
+        <label>اختر أفاتار</label>
+        <div class="avatar-row" id="avatar-row">
+          <div class="avatar-opt selected" onclick="selectAvatar(this,'🦁')">🦁</div>
+          <div class="avatar-opt" onclick="selectAvatar(this,'🐯')">🐯</div>
+          <div class="avatar-opt" onclick="selectAvatar(this,'🦊')">🦊</div>
+          <div class="avatar-opt" onclick="selectAvatar(this,'🐻')">🐻</div>
+          <div class="avatar-opt" onclick="selectAvatar(this,'🐼')">🐼</div>
+          <div class="avatar-opt" onclick="selectAvatar(this,'🦅')">🦅</div>
+          <div class="avatar-opt" onclick="selectAvatar(this,'🦋')">🦋</div>
+          <div class="avatar-opt" onclick="selectAvatar(this,'🌟')">🌟</div>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="doRegister()" id="register-btn">
+        <i class="fas fa-rocket"></i> إنشاء الحساب
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+let selectedAvatar = '🦁';
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active', (tab==='login'&&i===0)||(tab==='register'&&i===1)));
+  document.getElementById('panel-login').classList.toggle('active', tab==='login');
+  document.getElementById('panel-register').classList.toggle('active', tab==='register');
+}
+
+function togglePass(id, btn) {
+  const inp = document.getElementById(id);
+  const isPass = inp.type === 'password';
+  inp.type = isPass ? 'text' : 'password';
+  btn.querySelector('i').className = isPass ? 'fas fa-eye-slash' : 'fas fa-eye';
+}
+
+function selectAvatar(el, avatar) {
+  document.querySelectorAll('.avatar-opt').forEach(a=>a.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedAvatar = avatar;
+}
+
+function checkStrength(val) {
+  const fill = document.getElementById('strength-fill');
+  const label = document.getElementById('strength-label');
+  let score = 0;
+  if(val.length >= 8) score++;
+  if(/[A-Z]/.test(val)) score++;
+  if(/[0-9]/.test(val)) score++;
+  if(/[^A-Za-z0-9]/.test(val)) score++;
+  const colors = ['#ef4444','#f97316','#eab308','#10b981'];
+  const labels = ['ضعيفة','متوسطة','جيدة','قوية جداً'];
+  fill.style.width = (score*25)+'%';
+  fill.style.background = colors[score-1] || '#334155';
+  label.textContent = score > 0 ? `قوة كلمة المرور: ${labels[score-1]}` : '';
+  label.style.color = colors[score-1] || '#94a3b8';
+}
+
+function showError(id, msg) {
+  const el = document.getElementById(id);
+  el.querySelector('span').textContent = msg;
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'), 4000);
+}
+
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass = document.getElementById('login-pass').value;
+  if(!email || !pass) return showError('login-error','يرجى تعبئة جميع الحقول');
+  const users = JSON.parse(localStorage.getItem('fh_users') || '[]');
+  const user = users.find(u => u.email===email && u.password===btoa(pass));
+  if(!user) return showError('login-error','البريد الإلكتروني أو كلمة المرور غير صحيحة');
+  localStorage.setItem('fh_current', JSON.stringify(user));
+  const btn = document.getElementById('login-btn');
+  btn.classList.add('loading');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الدخول...';
+  setTimeout(()=>{ window.location.href='index.html'; }, 1000);
+}
+
+function doRegister() {
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const pass = document.getElementById('reg-pass').value;
+  if(!name||!email||!pass) return showError('register-error','يرجى تعبئة جميع الحقول');
+  if(pass.length < 8) return showError('register-error','كلمة المرور يجب أن تكون 8 أحرف على الأقل');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError('register-error','البريد الإلكتروني غير صحيح');
+  let users = JSON.parse(localStorage.getItem('fh_users') || '[]');
+  if(users.find(u=>u.email===email)) return showError('register-error','هذا البريد الإلكتروني مسجّل مسبقاً');
+  const user = {id: Date.now(), name, email, password: btoa(pass), avatar: selectedAvatar, joinDate: new Date().toLocaleDateString('ar'), studyData: {}};
+  users.push(user);
+  localStorage.setItem('fh_users', JSON.stringify(users));
+  localStorage.setItem('fh_current', JSON.stringify(user));
+  const btn = document.getElementById('register-btn');
+  btn.classList.add('loading');
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإنشاء...';
+  setTimeout(()=>{ window.location.href='index.html'; }, 1000);
+}
+
+// Enter key
+document.addEventListener('keydown', e => {
+  if(e.key==='Enter') {
+    if(document.getElementById('panel-login').classList.contains('active')) doLogin();
+    else doRegister();
+  }
+});
+
+// Redirect if already logged in
+if(localStorage.getItem('fh_current')) window.location.href='index.html';
+</script>
+</body>
+</html>
